@@ -26,7 +26,8 @@ spec:
   filename: "src/cloudbuild.yaml"
   serviceAccountRef:
     name: cbt-nodejs-demo
-
+  options:
+    logging: CLOUD_LOGGING_ONLY
 ---
 apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMServiceAccount
