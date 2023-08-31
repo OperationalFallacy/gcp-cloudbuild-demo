@@ -36,14 +36,27 @@ metadata:
 apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMPolicyMember
 metadata:
-  name: cbt-srvacct-role
+  name: cbt-srvacct-role-logger
   namespace: config-control
 spec:
   memberFrom:
     serviceAccountRef:
-      name: cbt-demo-srvacct
+      name: cbt-demo-srvacct-logger
   resourceRef:
     kind: Project
     external: projects/skylab-contino
   role: roles/logging.logWriter
-
+---
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMPolicyMember
+metadata:
+  name: cbt-srvacct-role-functions
+  namespace: config-control
+spec:
+  memberFrom:
+    serviceAccountRef:
+      name: cbt-demo-srvacct-functions
+  resourceRef:
+    kind: Project
+    external: projects/skylab-contino
+  role: roles/cloudfunctions.admin
