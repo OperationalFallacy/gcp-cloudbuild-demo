@@ -11,6 +11,7 @@ spec:
   # https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers
   description: Cloud Build Trigger for building the main branch of the GitHub repository at https://github.com/OperationalFallacy/gcp-codebuild-demo.git
   disabled: false
+  location: us-central1
   github:
     owner: OperationalFallacy
     name: gcp-codebuild-demo
