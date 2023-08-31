@@ -43,7 +43,7 @@ metadata:
 spec:
   memberFrom:
     serviceAccountRef:
-      name: cbt-demo-srvacct-logger
+      name: cbt-demo-srvacct
   resourceRef:
     kind: Project
     external: projects/skylab-contino
@@ -57,8 +57,8 @@ metadata:
 spec:
   memberFrom:
     serviceAccountRef:
-      name: cbt-demo-srvacct-functions
+      name: cbt-demo-srvacct
   resourceRef:
     kind: Project
     external: projects/skylab-contino
-  role: roles/cloudfunctions.admin
+  role: roles/cloudfunctions.developer
