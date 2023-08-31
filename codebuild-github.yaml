@@ -21,6 +21,7 @@ spec:
     - "**/*.md"
   includedFiles:
     - "src/**"
+    - "*.yaml"
   includeBuildLogs: INCLUDE_BUILD_LOGS_WITH_STATUS
   substitutions:
     "_SERVICE_NAME": "service-name"
