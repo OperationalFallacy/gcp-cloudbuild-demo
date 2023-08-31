@@ -25,12 +25,25 @@ spec:
     "_SERVICE_NAME": "service-name"
   filename: "src/cloudbuild.yaml"
   serviceAccountRef:
-    name: cbt-nodejs-demo
-  options:
-    logging: CLOUD_LOGGING_ONLY
+    name: cbt-demo-srvacct
 ---
 apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMServiceAccount
 metadata:
-  name: cbt-nodejs-demo
+  name: cbt-demo-srvacct
   namespace: config-control
+---
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMPolicyMember
+metadata:
+  name: cbt-srvacct-role
+  namespace: config-control
+spec:
+  memberFrom:
+    serviceAccountRef:
+      name: cbt-demo-srvacct
+  resourceRef:
+    kind: Project
+    external: projects/skylab-contino
+  role: roles/logging.logWriter
+

@@ -14,7 +14,7 @@ steps:
       - deploy
       - $_FUNCTION_NAME
       - --region=$_FUNCTION_REGION
-      - --source=.
+      - --source=src/
       - --trigger-http
       - --runtime=$_FUNCTION_RUNTIME
       - --project=$_FUNCTION_PROJECT
@@ -24,7 +24,7 @@ steps:
 substitutions:
   _FUNCTION_PROJECT: operationalFallacy-stage
   _FUNCTION_NAME: nodejs-demo
-  _FUNCTION_REGION: us-east1
+  _FUNCTION_REGION: us-central1
   _FUNCTION_RUNTIME: nodejs18
   _ENTRY_POINT: handler
 
