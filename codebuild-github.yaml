@@ -15,7 +15,7 @@ spec:
     owner: OperationalFallacy
     name: gcp-codebuild-demo
     push:
-      branch: main
+      branch: ^main$
   ignoredFiles:
     - "**/*.md"
   includedFiles:
@@ -26,6 +26,7 @@ spec:
   filename: "src/cloudbuild.yaml"
   serviceAccountRef:
     name: cbt-nodejs-demo
+
 ---
 apiVersion: iam.cnrm.cloud.google.com/v1beta1
 kind: IAMServiceAccount

@@ -27,3 +27,7 @@ substitutions:
   _FUNCTION_REGION: us-east1
   _FUNCTION_RUNTIME: nodejs18
   _ENTRY_POINT: handler
+
+build:
+  options:
+    logging: CLOUD_LOGGING_ONLY
