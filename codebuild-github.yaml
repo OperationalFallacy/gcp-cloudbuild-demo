@@ -1,4 +1,5 @@
 # https://cloud.google.com/config-connector/docs/reference/resource-docs/cloudbuild/cloudbuildtrigger
+
 apiVersion: cloudbuild.cnrm.cloud.google.com/v1beta1
 kind: CloudBuildTrigger
 metadata:
