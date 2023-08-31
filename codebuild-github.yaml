@@ -9,7 +9,7 @@ spec:
   # Cloud Build Triggers for GitHub repositories require that you first connect
   # your GCP project to your GitHub repository. More info:
   # https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers
-  description: Cloud Build Trigger for building the main branch of the GitHub repository at https://github.com/OperationalFallacy/gcp-codebuild-demo.git
+  description: Trigger for main branch of the GitHub repo https://github.com/OperationalFallacy/gcp-codebuild-demo
   disabled: false
   location: us-central1
   github:
