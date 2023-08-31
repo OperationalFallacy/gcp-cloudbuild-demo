@@ -21,9 +21,10 @@ spec:
     - "**/*.md"
   includedFiles:
     - "src/**"
+  includeBuildLogs: INCLUDE_BUILD_LOGS_WITH_STATUS
   substitutions:
     "_SERVICE_NAME": "service-name"
-  filename: "cloudbuild.yaml"
+  filename: "src/cloudbuild.yaml"
   serviceAccountRef:
     name: cbt-nodejs-demo
 ---
