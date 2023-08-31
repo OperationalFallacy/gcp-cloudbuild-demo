@@ -1,0 +1,33 @@
+# https://cloud.google.com/config-connector/docs/reference/resource-docs/cloudbuild/cloudbuildtrigger
+
+apiVersion: cloudbuild.cnrm.cloud.google.com/v1beta1
+kind: CloudBuildTrigger
+metadata:
+  name: cloudbuildtrigger-github
+  namespace: config-control
+spec:
+  # Cloud Build Triggers for GitHub repositories require that you first connect
+  # your GCP project to your GitHub repository. More info:
+  # https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers
+  description: Cloud Build Trigger for building the main branch of the GitHub repository at https://github.com/OperationalFallacy/gcp-codebuild-demo.git
+  disabled: false
+  github:
+    owner: OperationalFallacy
+    name: gcp-codebuild-demo
+    push:
+      branch: main
+  ignoredFiles:
+    - "**/*.md"
+  includedFiles:
+    - "src/**"
+  substitutions:
+    "_SERVICE_NAME": "service-name"
+  filename: "cloudbuild.yaml"
+  serviceAccountRef:
+    name: cbt-nodejs-demo
+---
+apiVersion: iam.cnrm.cloud.google.com/v1beta1
+kind: IAMServiceAccount
+metadata:
+  name: cbt-nodejs-demo
+  namespace: config-control
