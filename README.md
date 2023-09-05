@@ -1,40 +1,36 @@
 # GCP Cloud Build with Config Connector
 
-This is a demo project. The purpose to show how to create a build configuration for Cloud Build with Infrastructure-as-Code approach. We used Config Connector to create and manage Cloud Build.
+Welcome to our demo project! Here, we showcase how to craft a build configuration for Cloud Build using the Infrastructure-as-Code (IaC) approach. We leveraged the Config Connector to create and manage Cloud Build, bringing an element of ease and automation into the process.
 
-For maximum flexibility of building and deploying software, the project has separated configurations for infrastructure (`codebuild-github.yaml`) and the build (`src/cloudbuild.yaml`).
+For utmost flexibility in both building and deploying software, we have delineated the configurations for infrastructure (`cloudbuild-github.yaml`) and the build (`src/cloudbuild.yaml`). Cloud Build will automatically utilize this build configuration whenever users initiate builds.
 
-Cloud Build will use the build configuration automatically when user triggers builds.
+## Prerequisites
 
-# Prerequisites
+To get started, ensure you have the following tools installed:
 
-There is a minimum set of requirements:
+- gcloud CLI
+- kubectl CLI
 
-- glcoud cli
-- kubectl cli
+## Create Configuration
 
-# Create configuration
+Begin by setting up a connection with your GitHub repository so that the Cloud Build trigger can reference it. Note that this is a manual step, as users may need to authenticate access to their repository through the standard OAuth flow.
 
-First, configure GitHub repository connection so Cloud Build trigger can reference it. This is a manual step since user may need to authenticate access to its repository via standard oAuth flow.
-
-Create infrastructure:
+To configure gcloud:
 
 `gcloud config set project project-name`
 
-`kubectl apply -f codebuild-github.yaml` - this will create Cloud Build resources (the trigger)
 
-Push commits and the Cloud Build will execute them.
+Next, apply the following command to initiate Cloud Build resources (the trigger):
 
-# Notable features
+`kubectl apply -f cloudbuild-github.yaml`
 
-The configuration is completely serverless.
 
-We manage infrastructure with code.
+Now, simply push your commits, and Cloud Build will execute them promptly.
 
-Deployments will not require any credentials, all permissions can be assigned to a custom service account we configure for Cloud Build.
+## Notable Features
 
-Finally, Cloud Build has great integration with GitHub, it streams build logs, live build status, and the build completion status updates directly to the commits.
+Our configuration stands out due to its completely serverless nature, managed entirely through code. Additionally, deployments are a breeze, not requiring any credentials as all permissions can be designated to a custom service account we set up for Cloud Build. Moreover, Cloud Build offers seamless integration with GitHub, providing live updates on build logs, build status, and build completion directly on the commits.
 
-# TODO
+## TODO
 
-Configure Pull Request triggers and check what kind of status updates Cloud Build can post.
+Moving forward, we aim to configure pull request triggers and explore the variety of status updates Cloud Build can post.

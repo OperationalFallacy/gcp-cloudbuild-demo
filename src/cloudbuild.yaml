@@ -1,4 +1,5 @@
 steps:
+
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
     args: ["echo", "Building function..."]
     id: BUILD
@@ -22,7 +23,7 @@ steps:
     id: DEPLOY
 
 substitutions:
-  _FUNCTION_PROJECT: skylab-contino 
+  _FUNCTION_PROJECT: skylab-contino
   _FUNCTION_NAME: nodejs-demo
   _FUNCTION_REGION: us-central1
   _FUNCTION_RUNTIME: nodejs18
