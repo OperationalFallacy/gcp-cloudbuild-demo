@@ -31,6 +31,12 @@ Now, simply push your commits, and Cloud Build will execute them promptly.
 
 Our configuration stands out due to its completely serverless nature, managed entirely through code. Additionally, deployments are a breeze, not requiring any credentials as all permissions can be designated to a custom service account we set up for Cloud Build. Moreover, Cloud Build offers seamless integration with GitHub, providing live updates on build logs, build status, and build completion directly on the commits.
 
+![Build Live status](media/build_notifications.png)
+
+
+![Build Details](media/build_details.png)
+
+
 ## TODO
 
 Moving forward, we aim to configure pull request triggers and explore the variety of status updates Cloud Build can post.
