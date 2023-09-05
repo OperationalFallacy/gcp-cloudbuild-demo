@@ -8,12 +8,12 @@ spec:
   # Cloud Build Triggers for GitHub repositories require that you first connect
   # your GCP project to your GitHub repository. More info:
   # https://cloud.google.com/cloud-build/docs/automating-builds/create-github-app-triggers
-  description: Trigger for main branch of the GitHub repo https://github.com/OperationalFallacy/gcp-codebuild-demo
+  description: Trigger for main branch of the GitHub repo https://github.com/OperationalFallacy/gcp-cloudbuild-demo
   disabled: false
   location: us-central1
   github:
     owner: OperationalFallacy
-    name: gcp-codebuild-demo
+    name: gcp-cloudbuild-demo
     push:
       branch: ^main$
   ignoredFiles:
