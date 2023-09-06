@@ -21,7 +21,7 @@ spec:
   includedFiles:
     - "src/**"
     - "*.yaml"
-  includeBuildLogs: INCLUDE_BUILD_LOGS_WITH_STATUS
+  includeBuildLogs: INCLUDE_BUILD_LOGS_UNSPECIFIED
   substitutions:
     "_SERVICE_NAME": "service-name"
   filename: "src/cloudbuild.yaml"
