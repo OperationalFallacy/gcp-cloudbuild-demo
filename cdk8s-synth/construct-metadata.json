@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "resources": {
+    "cloudbuildpoc-builds-c864ce0c": { "path": "CloudBuildPoC/Builds" },
+    "cloudbuildpoc-cbrepo-c8278402": { "path": "CloudBuildPoC/cbRepo" },
+    "cloudbuildpoc-cdkartifacts-c8b4d3ed": {
+      "path": "CloudBuildPoC/cdkArtifacts"
+    },
+    "cloudbuildpoc-cbimages-c8c84e9a": { "path": "CloudBuildPoC/cbImages" },
+    "cloudbuildpoc-democb-c869dcca": { "path": "CloudBuildPoC/DemoCB" }
+  }
+}

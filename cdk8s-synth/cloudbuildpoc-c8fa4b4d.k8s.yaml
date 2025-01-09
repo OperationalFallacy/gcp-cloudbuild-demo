@@ -1,0 +1,134 @@
+apiVersion: pubsub.cnrm.cloud.google.com/v1beta1
+kind: PubSubTopic
+metadata:
+  labels:
+    purpose: cdk8s-cloudbuild
+  name: cloudbuildpoc-builds-c864ce0c
+  namespace: config-control
+---
+apiVersion: sourcerepo.cnrm.cloud.google.com/v1beta1
+kind: SourceRepoRepository
+metadata:
+  labels:
+    purpose: sourceRepo
+    stack: cloudBuild
+  name: cloudbuildpoc-cbrepo-c8278402
+  namespace: config-control
+---
+apiVersion: storage.cnrm.cloud.google.com/v1beta1
+kind: StorageBucket
+metadata:
+  labels:
+    purpose: cdk8s-cloudbuild
+  name: cloudbuildpoc-cdkartifacts-c8b4d3ed
+  namespace: config-control
+spec:
+  location: us-central1
+  uniformBucketLevelAccess: true
+---
+apiVersion: artifactregistry.cnrm.cloud.google.com/v1beta1
+kind: ArtifactRegistryRepository
+metadata:
+  labels:
+    purpose: cdk8s-cloudbuild
+  name: cloudbuildpoc-cbimages-c8c84e9a
+  namespace: config-control
+spec:
+  description: We use this for Cloud Build images. Uploaded from gcr.io/cloud-builders/yarn and in the future custom ones.
+  format: Docker
+  location: us-central1
+  resourceID: cloudbuild
+---
+apiVersion: cloudbuild.cnrm.cloud.google.com/v1beta1
+kind: CloudBuildTrigger
+metadata:
+  name: cloudbuildpoc-democb-c869dcca
+  namespace: config-control
+spec:
+  build:
+    artifacts:
+      objects:
+        location: gs://cloudbuildpoc-cdkartifacts-c8b4d3ed/$PROJECT_ID
+        paths:
+          - cdk8s-synth/*.yaml
+    options:
+      dynamicSubstitutions: true
+      machineType: E2_HIGHCPU_8
+    step:
+      - env:
+          - BUILD=$BUILD_ID
+          - PROJECT_ID=$PROJECT_ID
+          - PROJECT_NUMBER=$PROJECT_NUMBER
+          - REV=$REVISION_ID
+          - REPO_FULL_NAME=$REPO_FULL_NAME
+          - BRANCH_NAME=$BRANCH_NAME
+          - TRIGGER_BUILD_CONFIG_PATH=$TRIGGER_BUILD_CONFIG_PATH
+          - _USER=PubSubTrigger_env
+        id: BUILD_INFO
+        name: us-central1-docker.pkg.dev/skylab-contino/cloudbuild/npm
+        script: |-
+          #!/usr/bin/env bash
+
+          echo "==========="
+          echo "Variables"
+          echo "User: ${_USER}"
+
+          echo "BUILD=$BUILD_ID",
+          echo "PROJECT_ID=$PROJECT_ID",
+          echo "PROJECT_NUMBER=$PROJECT_NUMBER",
+          echo "REV=$REVISION_ID",
+          echo "REPO_FULL_NAME=$REPO_FULL_NAME",
+          echo "BRANCH_NAME=$BRANCH_NAME",
+          echo "TRIGGER_BUILD_CONFIG_PATH=$TRIGGER_BUILD_CONFIG_PATH"
+
+          echo Hello $_USER
+          echo The trigger name for the build is $TRIGGER_NAME
+          echo We are building in $PROJECT_ID
+          echo "======="
+
+          echo project files
+          pwd
+          ls -al
+      - args:
+          - install
+        entrypoint: yarn
+        id: DEPENDENCIES
+        name: us-central1-docker.pkg.dev/skylab-contino/cloudbuild/npm
+      - args:
+          - ts-node
+          - --project
+          - tsconfig.dev.json
+          - .projenrc.ts
+        entrypoint: yarn
+        id: PROJEN
+        name: us-central1-docker.pkg.dev/skylab-contino/cloudbuild/npm
+      - allowFailure: true
+        args:
+          - cdk8s
+          - synth
+        entrypoint: yarn
+        id: SCIRPT_SYNTH
+        name: us-central1-docker.pkg.dev/skylab-contino/cloudbuild/npm
+      - args:
+          - apply
+          - --cluster=krmapihost-config-controller-1
+          - --location=us-central1
+          - --filename=cdk8s-synth
+        id: SELF_MUTATE
+        name: gcr.io/cloud-builders/gke-deploy
+    substitutions:
+      _USER: PubSubTrigger
+  description: Cloud Build PoC with pub/sub trigger. Self mutation build.
+  location: us-central1
+  sourceToBuild:
+    ref: refs/heads/main
+    repoType: CLOUD_SOURCE_REPOSITORIES
+    uri: https://source.developers.google.com/p/skylab-contino/r/cloudbuildpoc-cbrepo-c8278402
+  tags:
+    - poc
+    - typescript
+    - cdk8s
+  triggerTemplate:
+    branchName: ^main$
+    repoRef:
+      name: cloudbuildpoc-cbrepo-c8278402
